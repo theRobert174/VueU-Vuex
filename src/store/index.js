@@ -5,7 +5,9 @@ import getRandomInt from "../helpers/getRandomInt";
 export default createStore({
     state: {
         count: 1,
-        lastMutation: 'none'
+        lastMutation: 'none',
+        isLoading: false,
+        lastRandomInt: 0
     },
     mutations: {//methods
         increment(state){
@@ -15,13 +17,19 @@ export default createStore({
         incrementBy(state, val){
             state.count+=val
             state.lastMutation = 'incrementBy' + val
+            state.lastRandomInt = val
+        },
+        setLoading(state, val) {
+            state.isLoading = val
         }
     },
     actions: {
-        async incrementRandomInt(context){
+        async incrementRandomInt({commit}){
+            commit('setLoading',true)
             const randomint = await getRandomInt()
 
-            context.commit('incrementBy',randomint)
+            commit('incrementBy',randomint)
+            commit('setLoading',false)
 
         }
     }

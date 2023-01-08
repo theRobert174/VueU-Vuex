@@ -5,7 +5,7 @@ const getRandomInt = () => new Promise( resolve => {
 
     setTimeout(() => {
         resolve(rndInt)
-    }, 1000);
+    }, 2000);
 })
 
 export default getRandomInt
